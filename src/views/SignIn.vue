@@ -16,7 +16,7 @@
 
       <v-card-actions class="d-flex justify-content-end">
         <vs-button 
-          :loading="loading"
+          :loading="isLoading"
           border
           @click="handleSubmit"
         >
@@ -29,6 +29,7 @@
 
 <script>
 import Input from '../components/Input'
+import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
@@ -36,6 +37,13 @@ export default {
     password: null,
     loading: false
   }),
+  computed: {
+    ...mapGetters({
+      isLoading: 'auth/getIsLoading',
+      message: 'auth/getMessage',
+      status: 'auth/getStatus'
+    })
+  },
   components: {
     Input
   },
@@ -47,18 +55,46 @@ export default {
       this.password = value
     },
     handleSubmit () {
-      this.loading = true
+      this.$store.dispatch('auth/handleLoading', true)
       let data = {
         email: this.email,
         password: this.password
       }
-      console.log(data)
+      this.$store.dispatch('auth/signIn', data)
+
+      this.handleWatch()
+    },
+    handleWatch () {
+      let watch = this.$store.watch((state, getters) => {
+        if (!getters['auth/getIsLoading']) {
+          this.handleNotify(this.status ,'Mensaje', this.message)
+        }
+      })
 
       setTimeout(() => {
-        this.loading = false
-      }, 2000);
-
-    }
+        watch()
+      }, 1000)
+    },
+    handleNotify (status, title, text) {
+      if (status === 200 || status === 201) {
+        this.$vs.notification({
+          title, 
+          text, 
+          position: 'top-center', 
+          color: 'primary', 
+          icon: 'done'
+        })
+        return
+      }
+      let color = 'danger', icon = 'error'
+      this.$vs.notification({
+        title: title, 
+        text: text, 
+        position: 'top-right', 
+        color: color, 
+        icon: icon
+      })
+    },
   }
 }
 </script>

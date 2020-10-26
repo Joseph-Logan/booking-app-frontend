@@ -43,7 +43,7 @@
       :open.sync="activeSidebar"
       >
       <template #logo>
-        <img alt="Vue logo" src="../../assets/logo.png">
+        <!-- <img alt="Vue logo" src="../../assets/logo.png"> -->
       </template>
       <vs-sidebar-item id="home">
         <template #icon>
