@@ -5,12 +5,7 @@
       <CategoryList />
      </vs-col>
       <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="8">
-        <vs-alert class="mx-2">
-          <template #title>
-            En proceso... <i class="bx bx-loader bx-lg rotate"></i>
-          </template>
-          Proximamente booking-app
-        </vs-alert>
+        <Product />
       </vs-col>
     </vs-row>
   </div>
@@ -18,11 +13,13 @@
 
 <script>
 import CategoryList from '../components/CategoryList'
+import Product from '../views/Product'
 
 export default {
   name: 'Home',
   components : {
-    CategoryList
+    CategoryList,
+    Product
   }
 }
 </script>

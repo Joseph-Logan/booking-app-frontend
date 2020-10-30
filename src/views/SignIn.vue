@@ -81,18 +81,16 @@ export default {
           title, 
           text, 
           position: 'top-center', 
-          color: 'primary', 
-          icon: 'done'
+          color: 'primary'
         })
         return
       }
-      let color = 'danger', icon = 'error'
+      let color = 'danger'
       this.$vs.notification({
         title: title, 
         text: text, 
         position: 'top-right', 
         color: color, 
-        icon: icon
       })
     },
   }
