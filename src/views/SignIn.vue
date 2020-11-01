@@ -76,7 +76,7 @@ export default {
       }, 1000)
     },
     handleNotify (status, title, text) {
-      if (status === 200 || status === 201) {
+      if (status === 200) {
         this.$vs.notification({
           title, 
           text, 
