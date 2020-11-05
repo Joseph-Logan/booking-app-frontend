@@ -9,7 +9,7 @@ const state = {
   categories: []
 }
 
-export default{
+export default {
   namespaced: true,
   state,
   actions,
