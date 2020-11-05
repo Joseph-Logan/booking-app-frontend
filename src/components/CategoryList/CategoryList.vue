@@ -1,20 +1,20 @@
 <template>
   <div class="category-list mx-2">
     <v-list dense>
-      <v-subheader>REPORTS</v-subheader>
+      <v-subheader>Categorias</v-subheader>
       <v-list-item-group
-        v-model="item"
+        v-model="activeItem"
         color="primary"
       >
         <v-list-item
-          v-for="(item, i) in items"
+          v-for="(item, i) in categories"
           :key="i"
         >
           <v-list-item-icon>
             <v-icon v-text="item.icon"></v-icon>
           </v-list-item-icon>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.text"></v-list-item-title>
+          <v-list-item-content @click="handleCantegory(item)">
+            <v-list-item-title v-text="item.name"></v-list-item-title>
           </v-list-item-content>
         </v-list-item>
       </v-list-item-group>
@@ -23,15 +23,28 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   data: () => ({
-    item: 1,
-      items: [
-        { text: 'Real-Time', icon: 'mdi-clock' },
-        { text: 'Audience', icon: 'mdi-account' },
-        { text: 'Conversions', icon: 'mdi-flag' },
-      ],
-  })
+    activeItem: 0,
+  }),
+  computed: {
+    ...mapGetters({
+      categories: 'category/getCategories'
+    }) 
+  },
+  methods: {
+    getCategories () {
+      this.$store.dispatch('category/getCategories')
+    },
+    handleCantegory (item) {
+      this.activeItem = item._id
+    }
+  },
+  mounted () {
+    this.getCategories()
+  }
 }
 </script>
 

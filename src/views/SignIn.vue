@@ -10,7 +10,7 @@
       </v-card-title>
 
       <v-card-text>
-        <Input title="Email" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" />
+        <Input title="Correo" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" />
         <Input title="Password" type="password" @handle-change = 'handlePassword' class="my-2 w-100" icon="bx bx-lock-open-alt" />
       </v-card-text>
 

@@ -1,7 +1,7 @@
 class Storage {
   getItem (name) {
     let item = localStorage.getItem(name)
-    return !item ? null : JSON.parse(item)
+    return item || JSON.parse(item)
   }
 
   getCircularReplacer () {

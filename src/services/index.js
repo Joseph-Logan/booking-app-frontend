@@ -1,6 +1,8 @@
 import { apiAuth } from './authenticate' 
+import { apiCategory } from './category'
 
 
 export {
-  apiAuth
+  apiAuth,
+  apiCategory
 }

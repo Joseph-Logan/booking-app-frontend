@@ -5,6 +5,8 @@ import {
   SIGNIN_SUCCESS
 } from '../../../utils/strings'
 
+import Storage from '../../../utils/storage'
+
 const handleLoading = (state, status) => {
   state.isLoading = status
 }
@@ -23,6 +25,12 @@ const storeCredentials = (state, payload) => {
   state.isLoading = false
   state.message = `${SIGNIN_SUCCESS} ${data.user.name}`
   state.status = payload.status
+
+  let item = [
+    {user: data.user},
+    {token: data.token}
+  ]
+  Storage.setItemsIterator(item)
 }
 
 const handleErrors = (state, err) => {

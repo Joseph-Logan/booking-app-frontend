@@ -1775,3 +1775,10 @@ body {
     margin-left: auto !important
   }
 }
+
+
+/* VUETIFY */
+
+.v-list-item-group .v-list-item--active {
+  color: #195BFF !important;
+}
