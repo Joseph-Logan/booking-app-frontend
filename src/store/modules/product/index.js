@@ -5,7 +5,8 @@ import mutations from './mutations'
 const state = {
   isLoading: false,
   message: null,
-  status: 0
+  status: 0,
+  products: []
 }
 
 export default {
