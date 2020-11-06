@@ -9,8 +9,13 @@ const signIn = async (data) => {
   return credentials
 }
 
+const signUp = async (data) => {
+  return await Axios.post(`${URL_ENDPOINT}/sign-up`, data)
+}
+
 const apiAuth = {
-  signIn
+  signIn,
+  signUp
 }
 
 export {

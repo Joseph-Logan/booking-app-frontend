@@ -33,6 +33,10 @@ const storeCredentials = (state, payload) => {
   Storage.setItemsIterator(item)
 }
 
+const verifySignUp = (state, payload) => {
+  console.log(payload)
+}
+
 const handleErrors = (state, err) => {
   state.isLoading = false
   state.message = err.data.errors[0].message
@@ -43,5 +47,6 @@ export default {
   handleLoading,
   handleResetState,
   storeCredentials,
+  verifySignUp,
   handleErrors
 }
