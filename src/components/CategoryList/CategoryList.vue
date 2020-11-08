@@ -36,6 +36,7 @@ export default {
     },
     handleCantegory (item) {
       this.activeItem = item._id
+      this.$emit('handle-select-category', item)
     }
   },
   mounted () {

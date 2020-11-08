@@ -207,7 +207,7 @@ export default {
     active: 'home',
     activeSidebar: false,
     items: [
-      { id: 1, title: 'Click Me' },
+      { id: 1, title: 'Mi perfil' },
       { id: 0, title: 'Cerrar session' },
     ],
     isAuthenticatedUser: false,
@@ -220,7 +220,7 @@ export default {
     handleOptionSession(item) {
       console.log(item)
       localStorage.clear()
-      this.isAuthenticated()
+      window.location = '/'
     },
     isAuthenticated() {
       try {

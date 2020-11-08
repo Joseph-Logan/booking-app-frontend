@@ -13,7 +13,17 @@ const getProjects = async context => {
   }
 }
 
+const getProjectsByCategory = async (context, categoryId) => {
+  try {
+    let response = await apiProject.getProjectsByCategory(categoryId)
+    context.commit('getProjects', response)
+  } catch (err) {
+    context.commit('handleErrors', err.response)
+  }
+} 
+
 export default {
   handleLoading,
-  getProjects
+  getProjects,
+  getProjectsByCategory
 }

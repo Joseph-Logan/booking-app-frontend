@@ -2,7 +2,7 @@
   <div class="home">
     <v-layout row wrap justify-start align-start>
      <v-flex xs12 md3>
-      <CategoryList />
+      <CategoryList @handle-select-category = 'handleSelectCategory' />
      </v-flex>
       <v-flex xs12 md9>
         <Project />
@@ -20,6 +20,15 @@ export default {
   components : {
     CategoryList,
     Project
+  },
+  data: () => ({
+    loading: false
+  }),
+  methods: {
+    handleSelectCategory (item) {
+      this.$store.dispatch('project/handleLoading', true)
+      this.$store.dispatch('project/getProjectsByCategory', item._id)
+    }
   }
 }
 </script>

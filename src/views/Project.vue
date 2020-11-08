@@ -27,7 +27,10 @@ export default {
     getProjects () {
       this.$store.dispatch('project/handleLoading', true)
       this.$store.dispatch('project/getProjects')
-      this.handleWatchAndLoading()
+      let watch = this.handleWatchAndLoading()
+      setTimeout(() => {
+        watch()
+      }, 1000)
     },
     handleWatchAndLoading () {
       let loading = this.startLoading()
@@ -37,9 +40,7 @@ export default {
           this.closeLoading(loading)
         }
       })
-      setTimeout(() => {
-        watch()
-      }, 1000)
+      return watch
     },
     startLoading () {
       let loading = this.$vs.loading({
@@ -52,6 +53,9 @@ export default {
     closeLoading (loading) {
       loading.close()
     }
+  },
+  updated () {
+    this.handleWatchAndLoading()
   },
   mounted () {
     this.getProjects()
