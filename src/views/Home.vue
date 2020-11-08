@@ -1,13 +1,13 @@
 <template>
   <div class="home">
-    <vs-row class="mt-5">
-     <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="3">
+    <v-layout row wrap justify-start align-start>
+     <v-flex xs12 md3>
       <CategoryList />
-     </vs-col>
-      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="9">
+     </v-flex>
+      <v-flex xs12 md9>
         <Project />
-      </vs-col>
-    </vs-row>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 

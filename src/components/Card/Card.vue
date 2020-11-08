@@ -1,14 +1,14 @@
 <template>
   <div class="m-2">
-    <v-card >
+    <v-card>
       <v-img
-        src="/images/default.jpg"
+        :src="project.urlImagePath"
         height="250px"
       >
         <v-container fill-height fluid>
             <v-layout fill-height>
               <v-flex xs12 align-end flexbox>
-                <span class="headline white--text">Top 10 Australian beaches</span>
+                <span class="headline white--text">{{ project.name }}</span>
               </v-flex>
             </v-layout>
           </v-container>
@@ -16,8 +16,10 @@
 
       <v-card-title primary-title>
         <div>
-          <div class="headline">Top western road trips</div>
-          <span class="grey--text">1,000 miles of wonder</span>
+          <div class="headline">{{ project.description }}</div>
+          <span class="grey--text">
+            <v-chip color="indigo" text-color="white">{{ project.category.name }}</v-chip>
+          </span>
         </div>
       </v-card-title>
 
@@ -31,6 +33,11 @@
 
 <script>
 export default {
+  props: {
+    project: {
+      type: Object
+    }
+  },
   data: () => ({
     show: false
   })
