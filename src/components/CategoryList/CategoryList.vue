@@ -1,23 +1,19 @@
 <template>
   <div class="category-list mx-2">
-    <v-list dense>
+    <v-list subheader>
       <v-subheader>Categorias</v-subheader>
-      <v-list-item-group
-        v-model="activeItem"
-        color="primary"
-      >
-        <v-list-item
+        <v-divider></v-divider>
+
+        <v-list-tile
           v-for="(item, i) in categories"
+          @click="handleCantegory(item)"
           :key="i"
         >
-          <v-list-item-icon>
-            <v-icon v-text="item.icon"></v-icon>
-          </v-list-item-icon>
-          <v-list-item-content @click="handleCantegory(item)">
-            <v-list-item-title v-text="item.name"></v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-      </v-list-item-group>
+
+          <v-list-tile-content>
+            <v-list-tile-title v-html="item.name"></v-list-tile-title>
+          </v-list-tile-content>
+        </v-list-tile>
     </v-list>
   </div>
 </template>
@@ -40,6 +36,7 @@ export default {
     },
     handleCantegory (item) {
       this.activeItem = item._id
+      this.$emit('handle-select-category', item)
     }
   },
   mounted () {

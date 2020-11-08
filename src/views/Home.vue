@@ -1,25 +1,34 @@
 <template>
   <div class="home">
-    <vs-row class="mt-5">
-     <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="4">
-      <CategoryList />
-     </vs-col>
-      <vs-col vs-type="flex" vs-justify="center" vs-align="center" w="8">
-        <Product />
-      </vs-col>
-    </vs-row>
+    <v-layout row wrap justify-start align-start>
+     <v-flex xs12 md3>
+      <CategoryList @handle-select-category = 'handleSelectCategory' />
+     </v-flex>
+      <v-flex xs12 md9>
+        <Project />
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 
 <script>
 import CategoryList from '../components/CategoryList'
-import Product from '../views/Product'
+import Project from '../views/Project'
 
 export default {
   name: 'Home',
   components : {
     CategoryList,
-    Product
+    Project
+  },
+  data: () => ({
+    loading: false
+  }),
+  methods: {
+    handleSelectCategory (item) {
+      this.$store.dispatch('project/handleLoading', true)
+      this.$store.dispatch('project/getProjectsByCategory', item._id)
+    }
   }
 }
 </script>

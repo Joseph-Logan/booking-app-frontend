@@ -17,8 +17,18 @@ const signIn = async (context, data) => {
   }
 }
 
+const signUp = async (context, data) => {
+  try {
+    let credentials = await apiAuth.signUp(data)
+    context.commit('verifySignUp', credentials)
+  } catch (err) {
+    context.commit('handleErrors', err.response)
+  }
+}
+
 export default {
   handleLoading,
   handleResetState,
-  signIn
+  signIn,
+  signUp
 }

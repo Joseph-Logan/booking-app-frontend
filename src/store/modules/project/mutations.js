@@ -1,7 +1,10 @@
+const handleLoading = (state, status) => {
+  state.isLoading = status
+}
 
-const getCategories = (state, payload) => {
+const getProjects = (state, payload) => {
   let { data } = payload
-  state.categories = data.categories
+  state.projects = data.projects
   state.isLoading = false
   state.status = payload.status
 }
@@ -10,10 +13,11 @@ const handleErrors = (state, err) => {
   state.isLoading = false
   state.message = err.data.errors[0].message
   state.status = err.status
-  state.categories = []
+  state.projects = []
 }
 
 export default {
-  getCategories,
+  handleLoading,
+  getProjects,
   handleErrors
 }
