@@ -10,6 +10,7 @@ const handleErrors = (state, err) => {
   state.isLoading = false
   state.message = err.data.errors[0].message
   state.status = err.status
+  state.categories = []
 }
 
 export default {

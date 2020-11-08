@@ -25,14 +25,37 @@
       </vs-navbar-item>
 
       <template #right>
-        <vs-button @click="goToRoute('SignIn')">
-          Iniciar sesion 
-          <i class="ml-1 bx bx-user bx-l"></i>
-        </vs-button>
-        <vs-button flat @click="goToRoute('SignUp')">
-          Unete a nosotros 
-          <i class="ml-1 bx bx-shopping-bag bx-l"></i>
-        </vs-button>
+        <div class="d-flex" v-if="!isAuthenticatedUser">
+          <vs-button @click="goToRoute('SignIn')">
+            Iniciar sesion 
+            <i class="ml-1 bx bx-user bx-l"></i>
+          </vs-button>
+          <vs-button flat @click="goToRoute('SignUp')">
+            Unete a nosotros 
+            <i class="ml-1 bx bx-shopping-bag bx-l"></i>
+          </vs-button>
+        </div>
+
+        <v-menu offset-y v-else>
+          <template v-slot:activator="{ on }">
+            <v-avatar 
+              color="indigo" 
+              v-on="on"
+              size="35px"
+            >
+              <span class="white--text">{{ userAuth }}</span>
+            </v-avatar>
+          </template>
+          <v-list>
+            <v-list-tile
+              v-for="(item, index) in items"
+              :key="index"
+              @click="handleOptionSession(item)"
+            >
+              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+            </v-list-tile>
+          </v-list>
+        </v-menu>
       </template>
 
     </vs-navbar>
@@ -177,15 +200,45 @@
 </template>
 
 <script>
+import Storage from '../../utils/storage'
+
 export default {
   data: () => ({
     active: 'home',
-    activeSidebar: false
+    activeSidebar: false,
+    items: [
+      { id: 1, title: 'Click Me' },
+      { id: 0, title: 'Cerrar session' },
+    ],
+    isAuthenticatedUser: false,
+    userAuth: null
   }),
   methods: {
     goToRoute(name) {
       this.$router.push({name})
+    },
+    handleOptionSession(item) {
+      console.log(item)
+      localStorage.clear()
+      this.isAuthenticated()
+    },
+    isAuthenticated() {
+      try {
+        let user = JSON.parse(Storage.getItem('user'))
+        if (user) {
+          console.log(user)
+          this.userAuth = user.name.charAt(0)
+          this.isAuthenticatedUser = true
+          return
+        }
+        this.isAuthenticatedUser = false
+      } catch (err) {
+        this.isAuthenticatedUser = false
+      }
     }
+  },
+  mounted () {
+    this.isAuthenticated()
   }
 }
 </script>

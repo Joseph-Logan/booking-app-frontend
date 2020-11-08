@@ -3,7 +3,6 @@
     <v-card
       elevation="4"
       class="mx-auto mt-5"
-      min-width="400px"
     >
       <v-card-title>
         <h4>Iniciar sesion</h4>
@@ -62,18 +61,22 @@ export default {
       }
       this.$store.dispatch('auth/signIn', data)
 
-      this.handleWatch()
+      this.handleWatchAndRedirect()
     },
-    handleWatch () {
+    handleWatchAndRedirect () {
       let watch = this.$store.watch((state, getters) => {
         if (!getters['auth/getIsLoading']) {
           this.handleNotify(this.status ,'Mensaje', this.message)
+          this.handleRedirect(this.status)
         }
       })
 
       setTimeout(() => {
         watch()
       }, 1000)
+    },
+    handleRedirect (status) {
+      if (status === 200) window.location = '/'
     },
     handleNotify (status, title, text) {
       if (status === 200) {
