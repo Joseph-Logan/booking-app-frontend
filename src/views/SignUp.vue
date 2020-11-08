@@ -1,33 +1,37 @@
 
 <template>
-  <div class="sign-in container-fluid d-flex justify-content-center">
-    <v-card
-      elevation="4"
-      class="mx-auto mt-10"
-    >
-      <v-card-title>
-        <h4>Unete a Nosotros</h4>
-      </v-card-title>
-
-      <v-card-text>
-        <Input title="Nombre" @handle-change = 'handleName' class="my-2" />
-        <Input title="Primer Apellido" @handle-change = 'handleSurname1' class="my-2" />
-        <Input title="Segundo Apellido" @handle-change = 'handleSurname2' class="my-2" />
-        <Input title="Identificación" @handle-change = 'handleDni' class="my-2" />
-        <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' class="my-2" />
-        <Input title="Contraseña" type="password" @handle-change = 'handlePassword' class="my-2" />
-      </v-card-text>
-
-      <v-card-actions class="d-flex justify-content-end">
-        <vs-button 
-          :loading="isLoading"
-          border
-          @click="handleSubmit"
+  <div class="sign-in container-fluid">
+     <v-layout row wrap justify-center align-center>
+      <v-flex xs12 md6>
+        <v-card
+          elevation="4"
+          class="mx-auto mt-10"
         >
-          Registrarse 
-        </vs-button>
-      </v-card-actions>
-    </v-card>
+          <v-card-title>
+            <h4>Unete a Nosotros</h4>
+          </v-card-title>
+
+          <v-card-text>
+            <Input title="Nombre" @handle-change = 'handleName' class="my-2" />
+            <Input title="Primer Apellido" @handle-change = 'handleSurname1' class="my-2" />
+            <Input title="Segundo Apellido" @handle-change = 'handleSurname2' class="my-2" />
+            <Input title="Identificación" @handle-change = 'handleDni' class="my-2" />
+            <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' class="my-2" />
+            <Input title="Contraseña" type="password" @handle-change = 'handlePassword' class="my-2" />
+          </v-card-text>
+
+          <v-card-actions class="d-flex justify-content-end">
+            <vs-button 
+              :loading="isLoading"
+              border
+              @click="handleSubmit"
+            >
+              Registrarse 
+            </vs-button>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+     </v-layout>
   </div>
 </template>
 

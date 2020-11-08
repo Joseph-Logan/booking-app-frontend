@@ -1,28 +1,32 @@
 <template>
-  <div class="sign-in container-fluid d-flex justify-content-center">
-    <v-card
-      elevation="4"
-      class="mx-auto mt-5"
-    >
-      <v-card-title>
-        <h4>Iniciar sesion</h4>
-      </v-card-title>
-
-      <v-card-text>
-        <Input title="Correo" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" />
-        <Input title="Password" type="password" @handle-change = 'handlePassword' class="my-2 w-100" icon="bx bx-lock-open-alt" />
-      </v-card-text>
-
-      <v-card-actions class="d-flex justify-content-end">
-        <vs-button 
-          :loading="isLoading"
-          border
-          @click="handleSubmit"
+  <div class="sign-in container-fluid">
+    <v-layout row wrap justify-center align-center>
+      <v-flex xs12 md6>
+        <v-card
+          elevation="4"
+          class="mx-auto mt-5"
         >
-          Inciar sesion
-        </vs-button>
-      </v-card-actions>
-    </v-card>
+          <v-card-title>
+            <h4>Iniciar sesion</h4>
+          </v-card-title>
+
+          <v-card-text>
+            <Input title="Correo" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" />
+            <Input title="Password" type="password" @handle-change = 'handlePassword' class="my-2 w-100" icon="bx bx-lock-open-alt" />
+          </v-card-text>
+
+          <v-card-actions class="d-flex justify-content-end">
+            <vs-button 
+              :loading="isLoading"
+              border
+              @click="handleSubmit"
+            >
+              Inciar sesion
+            </vs-button>
+          </v-card-actions>
+        </v-card>
+      </v-flex>
+    </v-layout>
   </div>
 </template>
 

@@ -4,6 +4,14 @@
       <v-flex xs12 md4 v-for="(item, i) in projects" :key="i">
         <Card :project="item" />
       </v-flex>
+      <v-flex xs12 md12 v-if="projects.length === 0" class="mt-4 px-3">
+        <v-alert 
+          :value="true"
+          type="info"
+        >
+          No hay proyectos en esta categoria
+        </v-alert>
+      </v-flex>
     </v-layout>
     <v-layout align-center justify-center row fill-height ref="content" style="height: 300px" v-if="isLoading"/>
   </div>
