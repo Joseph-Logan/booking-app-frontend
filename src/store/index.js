@@ -8,7 +8,7 @@ import Vuex from 'vuex'
 import AuthModule from './modules/authenticate'
 import CategoryModule from './modules/category'
 import ProductModule from './modules/product'
-
+import ProjectModule from './modules/project'
 /** End Modules */
 
 Vue.use(Vuex)
@@ -17,6 +17,7 @@ export default new Vuex.Store({
   modules: {
     auth: AuthModule,
     category: CategoryModule,
-    product: ProductModule
+    product: ProductModule,
+    project: ProjectModule
   }
 })

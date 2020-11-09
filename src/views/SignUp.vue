@@ -6,20 +6,53 @@
       class="mx-auto mt-10"
       min-width="400px"
     >
-      <v-card-title>
-        <h4>Unete a Nosotros</h4>
-      </v-card-title>
+      <v-container>
+        <v-card-title>
+          <h4 style="text-align:center">Unete a Nosotros</h4>
+        </v-card-title>
+        <v-row>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <Input title="Nombre" @handle-change = 'handleName' rules="nameRules" counter="10" required/>
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <Input title="Primer Apellido" @handle-change = 'handleSurname1' />
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <Input title="Segundo Apellido" @handle-change = 'handleSurname2' />
+          </v-col>
+        </v-row>
 
-      <v-card-text>
-        <Input title="Nombre" @handle-change = 'handleName' />
-        <Input title="Primer Apellido" @handle-change = 'handleSurname1' />
-        <Input title="Segundo Apellido" @handle-change = 'handleSurname2' />
-        <Input title="Identificación" @handle-change = 'handleDni' />
-        <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' />
-        <Input title="Contraseña" type="password" @handle-change = 'handlePassword' />
-      </v-card-text>
+        <v-row>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <Input title="Identificación" @handle-change = 'handleDni' />
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' rules="emailRules" required />
+          </v-col>
+          <v-col
+            cols="12"
+            md="4"
+          >
+            <Input title="Contraseña" type="password" @handle-change = 'handlePassword' />
+          </v-col>
+        </v-row>
 
-      <v-card-actions class="d-flex justify-content-end">
+        <v-card-actions class="d-flex justify-content-end">
         <vs-button 
           :loading="isLoading"
           border
@@ -28,23 +61,33 @@
           Registrarse 
         </vs-button>
       </v-card-actions>
+      </v-container>
     </v-card>
   </div>
 </template>
-
 <script>
 import Input from '../components/Input'
 import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
-    name: null,
-    firstSurName: null,
-    secondSurName: null,
-    dni: null,
-    email: null,
-    password: null,
+    valid:true,
+    name: '',
+    nameRules: [
+      v => !!v || 'Name is required',
+      v => (v && v.length <= 10) || 'Name must be less than 10 characters',
+    ],
+    firstSurName: '',
+    secondSurName: '',
+    dni: '',
+    email: '',
+    emailRules: [
+      v => !!v || 'E-mail is required',
+      v => /.+@.+/.test(v) || 'E-mail must be valid',
+    ],
+    password: '',
     loading: false
+
   }),
   computed: {
     ...mapGetters({
@@ -60,6 +103,15 @@ export default {
     handleName (name) {
       this.name = name
     },
+     validate () {
+        this.$refs.form.validate()
+      },
+      reset () {
+        this.$refs.form.reset()
+      },
+      resetValidation () {
+        this.$refs.form.resetValidation()
+      },
     handleSurname1(firstSurName){
       this.firstSurName = firstSurName
     },
