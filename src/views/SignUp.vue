@@ -110,7 +110,7 @@ export default {
           position: 'top-center', 
           color: 'primary'
         })
-        // this.goToRoute('SignIn')
+        this.goToRoute('SignIn')
         return
       }
       let color = 'danger'
