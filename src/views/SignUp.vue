@@ -76,20 +76,21 @@ export default {
       this.password = password
     },
     handleSubmit () {
-      //this.$store.dispatch('auth/handleLoading', true)
+      this.$store.dispatch('auth/handleLoading', true)
 
-      let data = {
+      this.$store.dispatch('auth/signUp', this.getProperties())
+
+      this.handleWatch()
+    },
+    getProperties(){
+      return {
         name: this.name,
-        firstSurName: this.firstSurName,
-        secondSurName: this.secondSurName,
+        firstSurname: this.firstSurName,
+        secondSurname: this.secondSurName,
         dni: this.dni,
         email: this.email,
         password: this.password
       }
-      console.log(data)
-      //this.$store.dispatch('auth/signIn', data)
-
-      //this.handleWatch()
     },
     handleWatch () {
       let watch = this.$store.watch((state, getters) => {
