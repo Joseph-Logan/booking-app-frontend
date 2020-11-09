@@ -79,7 +79,6 @@ export default {
       this.$store.dispatch('auth/handleLoading', true)
 
       this.$store.dispatch('auth/signUp', this.getProperties())
-
       this.handleWatch()
     },
     getProperties(){
@@ -104,13 +103,14 @@ export default {
       }, 1000)
     },
     handleNotify (status, title, text) {
-      if (status === 200) {
+      if (status === 200 || status === 201) {
         this.$vs.notification({
           title, 
           text, 
           position: 'top-center', 
           color: 'primary'
         })
+        // this.goToRoute('SignIn')
         return
       }
       let color = 'danger'
@@ -121,6 +121,9 @@ export default {
         color: color, 
       })
     },
+    goToRoute(name) {
+      this.$router.push({name})
+    }
   }
 }
 </script>

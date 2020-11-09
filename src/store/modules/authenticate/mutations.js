@@ -35,9 +35,8 @@ const storeCredentials = (state, payload) => {
 }
 
 const verifySignUp = (state, payload) => {
-  let { data } = payload
   state.isLoading = false
-  state.message = `${SIGNUP_SUCCESS} ${data.name}`
+  state.message = `${SIGNUP_SUCCESS}`
   state.status = payload.status
 }
 
