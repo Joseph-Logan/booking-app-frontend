@@ -1,31 +1,29 @@
 <template>
   <div class="m-2">
     <v-card>
-      <v-img
-        :src="project.urlImagePath"
-        height="250px"
-      >
-        <v-container fill-height fluid>
-            <v-layout fill-height>
-              <v-flex xs12 align-end flexbox>
-                <span class="headline white--text">{{ project.name }}</span>
-              </v-flex>
-            </v-layout>
-          </v-container>
-      </v-img>
-
-      <v-card-title primary-title>
-        <div>
-          <div class="headline">{{ project.description }}</div>
-          <span class="grey--text">
-            <v-chip color="indigo" text-color="white">{{ project.category.name }}</v-chip>
-          </span>
-        </div>
-      </v-card-title>
-
+      <v-layout row wrap @click="alert('card')">
+        <v-flex xs5>
+          <v-img
+            :src="project.urlImagePath"
+            height="250px"
+          >
+          </v-img>
+        </v-flex>
+        <v-flex xs7>
+          <v-card-title primary-title class="px-1">
+            <div class="headline text-capitalize mb-3">{{ project.name }}</div>
+            <div class="subheading text-truncate">{{ project.description }}</div>
+          </v-card-title>
+        </v-flex>
+      </v-layout>
+      <v-divider light></v-divider>
       <v-card-actions>
         <v-btn flat color="orange">Share</v-btn>
         <v-btn flat color="purple">Explore</v-btn>
+        <v-spacer></v-spacer>
+        <span class="grey--text my-2">
+          <v-chip color="indigo" text-color="white">{{ project.category.name }}</v-chip>
+        </span>
       </v-card-actions>
     </v-card>
   </div>

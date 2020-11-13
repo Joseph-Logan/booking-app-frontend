@@ -13,6 +13,12 @@ import Layout from './components/Layout'
 export default {
   components: {
     Layout
+  },
+  methods: {
+
+  },
+  mounted () {
+    
   }
 }
 </script>

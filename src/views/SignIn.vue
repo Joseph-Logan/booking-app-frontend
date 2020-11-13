@@ -80,7 +80,9 @@ export default {
       }, 1000)
     },
     handleRedirect (status) {
-      if (status === 200) window.location = '/'
+      setTimeout(() => {
+        if (status === 200) window.location = '/'
+      }, 1000);
     },
     handleNotify (status, title, text) {
       if (status === 200) {
