@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
-import AddProject from '../views/admin/AddProject.vue'
+import CreateProject from '../views/admin/CreateProject.vue'
 
 Vue.use(VueRouter)
 
@@ -29,8 +29,8 @@ const routes = [
   },
   {
     path: '/add-project',
-    name: 'AddProject',
-    component: AddProject
+    name: 'CreateProject',
+    component: CreateProject
   }
 ]
 
