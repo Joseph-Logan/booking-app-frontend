@@ -211,16 +211,20 @@ export default {
       { id: 0, title: 'Cerrar session' },
     ],
     isAuthenticatedUser: false,
-    userAuth: null
+    userAuth: null,
+    activeConfirm: false
   }),
   methods: {
     goToRoute(name) {
       this.$router.push({name})
     },
     handleOptionSession(item) {
-      console.log(item)
-      localStorage.clear()
-      window.location = '/'
+      if(item.id == 0){
+        localStorage.clear()
+        window.location = '/'
+        return
+      }
+      
     },
     isAuthenticated() {
       try {
@@ -235,7 +239,23 @@ export default {
       } catch (err) {
         this.isAuthenticatedUser = false
       }
-    }
+    },
+    openConfirm(){
+      this.$vs.dialog({
+        type:'confirm',
+        color: 'danger',
+        title: `Confirm`,
+        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+        accept:this.acceptAlert
+      })
+    },
+    acceptAlert(){
+      this.$vs.notify({
+        color:'danger',
+        title:'Deleted image',
+        text:'The selected image was successfully deleted'
+      })
+    },
   },
   mounted () {
     this.isAuthenticated()
