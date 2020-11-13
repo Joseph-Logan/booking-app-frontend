@@ -57,9 +57,10 @@
           </v-list>
         </v-menu>
       </template>
+      <div v-if="activeDialog" ><Dialog :activeDialog="activeDialog" /></div>
 
     </vs-navbar>
-
+    
     <vs-sidebar
       absolute
       v-model="active"
@@ -89,6 +90,7 @@
         </vs-row>
       </template>
     </vs-sidebar>
+    
   </div>
 </template>
 
@@ -97,6 +99,7 @@ import Storage from '../../utils/storage'
 import { isAuthenticated } from '../../utils/authenticate'
 import SidebarEmptyProjectOption from './SidebarEmptyProjects'
 import SidebarWithProjectOption from './SidebarWithProjects'
+import Dialog from '../Dialog'
 
 export default {
   data: () => ({
@@ -108,7 +111,9 @@ export default {
     ],
     isAuthenticatedUser: false,
     userAuth: null,
-    isUserHasProjects: false
+    isUserHasProjects: false,
+    
+    activeDialog: false
   }),
   methods: {
     goToRoute(name) {
@@ -120,7 +125,11 @@ export default {
         window.location = '/'
         return
       }
-      
+      this.activeDialog = false
+      this.activeDialog = true
+    },
+    activeDialog(){
+      return this.activeDialog
     },
     configAvatar() {
       let user = JSON.parse(Storage.getItem('user'))
@@ -143,26 +152,11 @@ export default {
         this.isAuthenticatedUser = false
       }
     },
-    openConfirm(){
-      this.$vs.dialog({
-        type:'confirm',
-        color: 'danger',
-        title: `Confirm`,
-        text: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-        accept:this.acceptAlert
-      })
-    },
-    acceptAlert(){
-      this.$vs.notify({
-        color:'danger',
-        title:'Deleted image',
-        text:'The selected image was successfully deleted'
-      })
-    },
   },
   components: {
     SidebarEmptyProjectOption,
-    SidebarWithProjectOption
+    SidebarWithProjectOption,
+    Dialog
   },
   async mounted () {
     await this.getIsAuthenticated()
