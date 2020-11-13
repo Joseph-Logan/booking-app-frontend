@@ -9,10 +9,13 @@
           @click="handleCantegory(item)"
           :key="i"
         >
-
           <v-list-tile-content>
             <v-list-tile-title v-html="item.name"></v-list-tile-title>
           </v-list-tile-content>
+
+          <v-list-tile-action>
+              <v-icon color="blue"> {{ activeItem === item._id ? 'check' : '' }}</v-icon>
+            </v-list-tile-action>
         </v-list-tile>
     </v-list>
   </div>

@@ -11,7 +11,7 @@
           </v-card-title>
 
           <v-card-text>
-            <Input title="Correo" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" />
+            <Input title="Correo" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" v-bind:isValid="isValidEmail" />
             <Input title="Password" type="password" @handle-change = 'handlePassword' class="my-2 w-100" icon="bx bx-lock-open-alt" />
           </v-card-text>
 
@@ -38,7 +38,9 @@ export default {
   data: () => ({
     email: null,
     password: null,
-    loading: false
+    loading: false,
+    isValidEmail: false,
+    isValidPassword: false
   }),
   computed: {
     ...mapGetters({
@@ -51,7 +53,11 @@ export default {
     Input
   },
   methods: {
+    validEmail(value) {
+     return /^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/.test(value)
+    },
     handleEmail (value) {
+      this.isValidEmail = this.validEmail(value)
       this.email = value
     },
     handlePassword (value) {
@@ -80,7 +86,9 @@ export default {
       }, 1000)
     },
     handleRedirect (status) {
-      if (status === 200) window.location = '/'
+      setTimeout(() => {
+        if (status === 200) window.location = '/'
+      }, 1000);
     },
     handleNotify (status, title, text) {
       if (status === 200) {

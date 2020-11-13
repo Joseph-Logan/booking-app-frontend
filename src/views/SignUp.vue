@@ -1,37 +1,70 @@
 
 <template>
-  <div class="sign-in container-fluid d-flex justify-content-center">
-   <v-layout row wrap justify-center align-center>
-      <v-flex xs12 md6>
-      <v-card
-        elevation="4"
-        class="mx-auto mt-10"
-        min-width="400px"
-      >
-        <v-container>
-          <v-card-title>
-            <h4 style="text-align:center">Unete a Nosotros</h4>
-          </v-card-title>
-         
-              <Input title="Nombre" @handle-change = 'handleName' rules="nameRules" counter="10" required/>
-              <Input title="Primer Apellido" @handle-change = 'handleSurname1' />
-              <Input title="Segundo Apellido" @handle-change = 'handleSurname2' />
-              <Input title="Identificación" @handle-change = 'handleDni' />
-              <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' rules="emailRules" required />
-              <Input title="Contraseña" type="password" @handle-change = 'handlePassword' />
+  <div class="sign-up">
+    <v-layout row wrap justify-center align-center>
+      <v-flex xs12 md8>
+        <v-card
+          elevation="4"
+          class="mx-auto mt-5"
+        >
+          <v-container>
+            <v-card-title>
+              <h4 style="text-align:center">Unete a Nosotros</h4>
+            </v-card-title>
+            <v-row>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <Input title="Nombre" @handle-change = 'handleName' rules="nameRules" counter="10" class="my-2" required />
+              </v-col>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <Input title="Primer Apellido" @handle-change = 'handleSurname1' class="my-2" />
+              </v-col>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <Input title="Segundo Apellido" @handle-change = 'handleSurname2' class="my-2" />
+              </v-col>
+            </v-row>
 
-          <v-card-actions class="d-flex justify-content-end">
-          <vs-button 
-            :loading="isLoading"
-            border
-            @click="handleSubmit"
-          >
-            Registrarse 
-          </vs-button>
-        </v-card-actions>
-        </v-container>
-      </v-card>
-    </v-flex>
+            <v-row>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <Input title="Identificación" @handle-change = 'handleDni' class="my-2" />
+              </v-col>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' class="my-2" rules="emailRules" required />
+              </v-col>
+              <v-col
+                cols="12"
+                md="4"
+              >
+                <Input title="Contraseña" type="password" @handle-change = 'handlePassword' class="my-2" />
+              </v-col>
+            </v-row>
+
+            <v-card-actions class="d-flex justify-content-end">
+            <vs-button 
+              :loading="isLoading"
+              border
+              @click="handleSubmit"
+            >
+              Registrarse 
+            </vs-button>
+          </v-card-actions>
+          </v-container>
+        </v-card>
+      </v-flex>
     </v-layout>
   </div>
 </template>

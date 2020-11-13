@@ -1790,3 +1790,12 @@ body {
 .v-list-item-group .v-list-item--active {
   color: #195BFF !important;
 }
+
+/* Vuesax */
+div.vs-select-content {
+  max-width: none;
+}
+
+div.vs-select-content label.vs-select__label {
+  font-size: 1rem;
+}

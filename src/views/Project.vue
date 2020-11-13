@@ -4,8 +4,8 @@
       <v-flex xs12 md4 v-for="(item, i) in projects" :key="i">
         <Card :project="item" />
       </v-flex>
-      <v-flex xs12 md12 v-if="projects.length === 0" class="mt-4 px-3">
-        <v-alert 
+      <v-flex xs12 md12 v-if="projects.length < 1" class="mt-4 px-3">
+        <v-alert
           :value="true"
           type="info"
         >
@@ -42,13 +42,16 @@ export default {
     },
     handleWatchAndLoading () {
       let loading = this.startLoading()
-
-      let watch = this.$store.watch((state, getters) => {
-        if (!getters['project/getIsLoading']) {
-          this.closeLoading(loading)
-        }
-      })
-      return watch
+      try {
+        let watch = this.$store.watch((state, getters) => {
+          if (!getters['project/getIsLoading']) {
+            this.closeLoading(loading)
+          }
+        })
+        return watch
+      } catch (err) {
+         this.closeLoading(loading)
+      }
     },
     startLoading () {
       let loading = this.$vs.loading({
