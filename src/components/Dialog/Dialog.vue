@@ -14,13 +14,6 @@
               </span>
             </template>
           </vs-input>
-          <vs-input v-model="surname" readonly>
-            <template #icon>
-              <span class="material-icons">
-                account_circle
-              </span>
-            </template>
-          </vs-input>
           <vs-input v-model="email" readonly>
             <template #icon>
               <span class="material-icons">
@@ -31,10 +24,11 @@
           <vs-input v-model="dni" readonly>
             <template #icon>
              <span class="material-icons">
-                fingerprint
+                payment
               </span>
             </template>
           </vs-input>
+          
         </div>
         <template #footer>
         </template>
@@ -53,21 +47,20 @@
     },
     data: () => ({
       name: '',
-      surname: '',
       email: '',
       dni: ''
     }),
     methods: {
       async userDetails() {
         let user = JSON.parse(Storage.getItem('user'))
-        this.name = user.name
-        this.surname = user.firstSurname + ' ' + user.secondSurname
+        this.name = user.name + ' ' + user.firstSurname + ' ' + user.secondSurname
         this.email = user.email
         this.dni = user.dni
       }
     },
     async mounted () {
       await this.userDetails()
+      
     }
   };
 </script>
