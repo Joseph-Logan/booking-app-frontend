@@ -2,7 +2,7 @@
   <div class="navbar">
     <vs-navbar shadow square center-collapsed v-model="active">
 
-      <template #left>
+      <template #left v-if="isAuthenticatedUser">
         <vs-button @click="activeSidebar = !activeSidebar" flat icon>
           <i class='bx bx-menu'></i>
         </vs-button>
@@ -64,122 +64,15 @@
       absolute
       v-model="active"
       :open.sync="activeSidebar"
+      v-if="isAuthenticatedUser"
       >
       <template #logo>
-        <!-- <img alt="Vue logo" src="../../assets/logo.png"> -->
+        <img alt="Vue logo" src="../../assets/logo.png">
       </template>
-      <vs-sidebar-item id="home">
-        <template #icon>
-          <i class='bx bx-home'></i>
-        </template>
-        Home
-      </vs-sidebar-item>
-      <vs-sidebar-item id="market">
-        <template #icon>
-          <i class='bx bx-grid-alt'></i>
-        </template>
-        Market Overview
-      </vs-sidebar-item>
-      <vs-sidebar-item id="Music">
-        <template #icon>
-          <i class='bx bxs-music'></i>
-        </template>
-        Music
-      </vs-sidebar-item>
-      <vs-sidebar-group>
-        <template #header>
-          <vs-sidebar-item arrow>
-            <template #icon>
-              <i class='bx bx-group'></i>
-            </template>
-            Social media
-          </vs-sidebar-item>
-        </template>
 
-        <vs-sidebar-item id="Instagram">
-          <template #icon>
-            <i class='bx bxl-instagram'></i>
-          </template>
-          Instagram
-        </vs-sidebar-item>
-        <vs-sidebar-item id="twitter">
-          <template #icon>
-            <i class='bx bxl-twitter' ></i>
-          </template>
-          Twitter
-        </vs-sidebar-item>
-        <vs-sidebar-item id="Facebook">
-          <template #icon>
-            <i class='bx bxl-facebook' ></i>
-          </template>
-          Facebook
-        </vs-sidebar-item>
-      </vs-sidebar-group>
-      <vs-sidebar-group>
-        <template #header>
-          <vs-sidebar-item arrow>
-            <template #icon>
-              <i class='bx bx-code-alt' ></i>
-            </template>
-            Coding
-          </vs-sidebar-item>
-        </template>
+      <SidebarEmptyProjectOption v-if="!isUserHasProjects" />
+      <SidebarWithProjectOption v-if="isUserHasProjects" />
 
-        <vs-sidebar-item id="github">
-          <template #icon>
-            <i class='bx bxl-github' ></i>
-          </template>
-          Github
-        </vs-sidebar-item>
-        <vs-sidebar-item id="codepen">
-          <template #icon>
-            <i class='bx bxl-codepen'></i>
-          </template>
-          Codepen
-        </vs-sidebar-item>
-        <vs-sidebar-item id="discord">
-          <template #icon>
-            <i class='bx bxl-discord'></i>
-          </template>
-          Discord
-        </vs-sidebar-item>
-        <vs-sidebar-item id="Javascript">
-          <template #icon>
-            <i class='bx bxl-javascript' ></i>
-          </template>
-          Javascript
-        </vs-sidebar-item>
-        <vs-sidebar-item id="git">
-          <template #icon>
-            <i class='bx bxl-git' ></i>
-          </template>
-          Git
-        </vs-sidebar-item>
-      </vs-sidebar-group>
-      <vs-sidebar-item id="donate">
-        <template #icon>
-          <i class='bx bxs-donate-heart' ></i>
-        </template>
-        Donate
-      </vs-sidebar-item>
-      <vs-sidebar-item id="drink">
-        <template #icon>
-          <i class='bx bx-drink'></i>
-        </template>
-        Drink
-      </vs-sidebar-item>
-      <vs-sidebar-item id="shopping">
-        <template #icon>
-          <i class='bx bxs-shopping-bags'></i>
-        </template>
-        Shopping
-      </vs-sidebar-item>
-      <vs-sidebar-item id="chat">
-        <template #icon>
-          <i class='bx bx-chat' ></i>
-        </template>
-        Chat
-      </vs-sidebar-item>
       <template #footer>
         <vs-row justify="space-between">
           <vs-avatar>
@@ -201,6 +94,9 @@
 
 <script>
 import Storage from '../../utils/storage'
+import { isAuthenticated } from '../../utils/authenticate'
+import SidebarEmptyProjectOption from './SidebarEmptyProjects'
+import SidebarWithProjectOption from './SidebarWithProjects'
 
 export default {
   data: () => ({
@@ -212,7 +108,7 @@ export default {
     ],
     isAuthenticatedUser: false,
     userAuth: null,
-    activeConfirm: false
+    isUserHasProjects: false
   }),
   methods: {
     goToRoute(name) {
@@ -226,16 +122,23 @@ export default {
       }
       
     },
-    isAuthenticated() {
+    configAvatar() {
+      let user = JSON.parse(Storage.getItem('user'))
+      if (user) {
+        this.userAuth = user.name.charAt(0)
+      }
+    },
+    async isUserProjects () {
+      let user = JSON.parse(Storage.getItem('user'))
+      if (user) {
+        this.isUserHasProjects = user.projects.length > 0 ? true : false
+        console.log(user.projects.length, 'tmano')
+      }
+    },
+    async getIsAuthenticated () {
       try {
-        let user = JSON.parse(Storage.getItem('user'))
-        if (user) {
-          console.log(user)
-          this.userAuth = user.name.charAt(0)
-          this.isAuthenticatedUser = true
-          return
-        }
-        this.isAuthenticatedUser = false
+        this.isAuthenticatedUser = isAuthenticated()
+        this.configAvatar()
       } catch (err) {
         this.isAuthenticatedUser = false
       }
@@ -257,8 +160,13 @@ export default {
       })
     },
   },
-  mounted () {
-    this.isAuthenticated()
+  components: {
+    SidebarEmptyProjectOption,
+    SidebarWithProjectOption
+  },
+  async mounted () {
+    await this.getIsAuthenticated()
+    await this.isUserProjects()
   }
 }
 </script>

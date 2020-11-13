@@ -42,13 +42,16 @@ export default {
     },
     handleWatchAndLoading () {
       let loading = this.startLoading()
-
-      let watch = this.$store.watch((state, getters) => {
-        if (!getters['project/getIsLoading']) {
-          this.closeLoading(loading)
-        }
-      })
-      return watch
+      try {
+        let watch = this.$store.watch((state, getters) => {
+          if (!getters['project/getIsLoading']) {
+            this.closeLoading(loading)
+          }
+        })
+        return watch
+      } catch (err) {
+         this.closeLoading(loading)
+      }
     },
     startLoading () {
       let loading = this.$vs.loading({
