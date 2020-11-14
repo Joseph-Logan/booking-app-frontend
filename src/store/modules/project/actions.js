@@ -20,10 +20,21 @@ const getProjectsByCategory = async (context, categoryId) => {
   } catch (err) {
     context.commit('handleErrors', err.response)
   }
-} 
+}
+
+const storeProject = async (context, data) => {
+  try {
+    let response = await apiProject.storeProject(data)
+    context.commit('storeProject', response)
+  } catch (err) {
+    context.commit('handleErrors', err.response)
+  }
+}
+
 
 export default {
   handleLoading,
   getProjects,
-  getProjectsByCategory
+  getProjectsByCategory,
+  storeProject
 }

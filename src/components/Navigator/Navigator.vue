@@ -62,7 +62,7 @@
     </vs-navbar>
     
     <vs-sidebar
-      absolute
+      :absolute="true"
       v-model="active"
       :open.sync="activeSidebar"
       v-if="isAuthenticatedUser"
@@ -71,18 +71,114 @@
         <img alt="Vue logo" src="../../assets/logo.png">
       </template>
 
-      <SidebarEmptyProjectOption v-if="!isUserHasProjects" />
-      <SidebarWithProjectOption v-if="isUserHasProjects" />
+      <!-- Config sidebar when user has empty project -->
+      <div class="option-empty-project" v-if="!isUserHasProjects">
+        <vs-sidebar-item id="home" to="add-project">
+          <template #icon>
+            <i class='bx bxs-folder'></i>
+          </template>
+          Agregar mi primer proyecto
+        </vs-sidebar-item>
+      </div>
+
+      <!-- Config sidebar when user has projects -->
+
+      <div class="sidebar-with-project" v-if="isUserHasProjects">
+        <vs-sidebar-item id="market">
+          <template #icon>
+            <i class='bx bx-grid-alt'></i>
+          </template>
+          Market Overview
+        </vs-sidebar-item>
+        <vs-sidebar-item id="Music">
+          <template #icon>
+            <i class='bx bxs-music'></i>
+          </template>
+          Music
+        </vs-sidebar-item>
+        <vs-sidebar-group>
+          <template #header>
+            <vs-sidebar-item arrow>
+              <template #icon>
+                <i class='bx bx-group'></i>
+              </template>
+              Social media
+            </vs-sidebar-item>
+          </template>
+
+          <vs-sidebar-item id="Instagram">
+            <template #icon>
+              <i class='bx bxl-instagram'></i>
+            </template>
+            Instagram
+          </vs-sidebar-item>
+          <vs-sidebar-item id="twitter">
+            <template #icon>
+              <i class='bx bxl-twitter' ></i>
+            </template>
+            Twitter
+          </vs-sidebar-item>
+          <vs-sidebar-item id="Facebook">
+            <template #icon>
+              <i class='bx bxl-facebook' ></i>
+            </template>
+            Facebook
+          </vs-sidebar-item>
+        </vs-sidebar-group>
+        <vs-sidebar-group>
+          <template #header>
+            <vs-sidebar-item arrow>
+              <template #icon>
+                <i class='bx bx-code-alt' ></i>
+              </template>
+              Coding
+            </vs-sidebar-item>
+          </template>
+
+          <vs-sidebar-item id="github">
+            <template #icon>
+              <i class='bx bxl-github' ></i>
+            </template>
+            Github
+          </vs-sidebar-item>
+          <vs-sidebar-item id="codepen">
+            <template #icon>
+              <i class='bx bxl-codepen'></i>
+            </template>
+            Codepen
+          </vs-sidebar-item>
+          <vs-sidebar-item id="discord">
+            <template #icon>
+              <i class='bx bxl-discord'></i>
+            </template>
+            Discord
+          </vs-sidebar-item>
+          <vs-sidebar-item id="Javascript">
+            <template #icon>
+              <i class='bx bxl-javascript' ></i>
+            </template>
+            Javascript
+          </vs-sidebar-item>
+          <vs-sidebar-item id="git">
+            <template #icon>
+              <i class='bx bxl-git' ></i>
+            </template>
+            Git
+          </vs-sidebar-item>
+        </vs-sidebar-group>
+      </div>
 
       <template #footer>
         <vs-row justify="space-between">
-          <vs-avatar>
-            <img src="/avatars/avatar-5.png" alt="">
-          </vs-avatar>
+          <v-avatar 
+            color="indigo" 
+            size="35px"
+          >
+            <span class="white--text">{{ userAuth }}</span>
+          </v-avatar>
 
           <vs-avatar badge-color="danger" badge-position="top-right">
-            <i class='bx bx-bell' ></i>
-
+            <i class='bx bx-bell'></i>
             <template #badge>
               28
             </template>
@@ -134,14 +230,13 @@ export default {
     configAvatar() {
       let user = JSON.parse(Storage.getItem('user'))
       if (user) {
-        this.userAuth = user.name.charAt(0)
+        this.userAuth = user.name.charAt(0).toUpperCase()
       }
     },
     async isUserProjects () {
       let user = JSON.parse(Storage.getItem('user'))
       if (user) {
         this.isUserHasProjects = user.projects.length > 0 ? true : false
-        console.log(user.projects.length, 'tmano')
       }
     },
     async getIsAuthenticated () {
@@ -152,6 +247,9 @@ export default {
         this.isAuthenticatedUser = false
       }
     },
+  },
+  handleClick () {
+    console.log('any')
   },
   components: {
     SidebarEmptyProjectOption,
