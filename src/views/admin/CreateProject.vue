@@ -43,11 +43,18 @@
               v-model="project.description"
             ></v-textarea>
 
-            <vs-select filter placeholder="Seleccionar categoria" v-model="project.category" class="select-input">
+            <vs-select filter placeholder="Seleccionar categoria" v-model="project.category" class="select-input" @change="handleCategory">
               <vs-option v-for="(item, i) in categories" :key="i" :label="item.name" :value="item._id" >
                 {{ item.name }}
               </vs-option>
             </vs-select>
+            <!-- <v-select
+              :items="categories"
+              label="Solo field"
+              solo
+              item-text="name"
+              item-value="_id"
+            ></v-select> -->
           </v-card-text>
 
           <v-card-actions class="pt-4">
@@ -69,18 +76,22 @@
 <script>
 import Input from '../../components/Input'
 import { mapGetters } from 'vuex'
+import Storage from '../../utils/storage'
 
 export default {
   data: () => ({
     project: {
       name: '',
       description: '',
-      category: ''
-    }
+      category: '0'
+    },
   }),
   computed: {
     ...mapGetters({
-      categories: 'category/getCategories'
+      categories: 'category/getCategories',
+      isLoading: 'project/getIsLoading',
+      message: 'project/getMessage',
+      status: 'project/getStatus'
     })
   },
   methods: {
@@ -90,12 +101,67 @@ export default {
     handleDescriptionProject (e) {
       this.project.description = e.target.value
     },
+    handleCategory(value) {
+      this.project.category = value
+      this.value = value
+    },
     getCategories () {
       this.$store.dispatch('category/getCategories')
     },
     handleSubmit () {
-      this.$store.dispatch('project/storeProject', this.project)
-    }
+      try {
+        let _id = JSON.parse(Storage.getItem('user'))._id
+
+        let data = {
+          project: this.project,
+          user: {
+            _id
+          }
+        }
+        
+        this.$store.dispatch('project/handleLoading', true)
+        this.$store.dispatch('project/storeProject', data)
+
+        this.handleWatchAndRedirect()
+      } catch (err) {
+        this.handleNotify(500, 'Mensaje', err)
+      }
+    },
+    handleWatchAndRedirect () {
+      let watch = this.$store.watch((state, getters) => {
+        if (!getters['project/getIsLoading']) {
+          this.handleNotify(this.status ,'Mensaje', this.message)
+          this.handleRedirect(this.status)
+        }
+      })
+      
+      setTimeout(() => {
+        watch()
+      }, 1000)
+    },
+    handleRedirect (status) {
+      setTimeout(() => {
+        if (status === 201) window.location = '/'
+      }, 1000);
+    },
+    handleNotify (status, title, text) {
+      if (status === 201) {
+        this.$vs.notification({
+          title, 
+          text, 
+          position: 'top-center', 
+          color: 'primary'
+        })
+        return
+      }
+      let color = 'danger'
+      this.$vs.notification({
+        title: title, 
+        text: text, 
+        position: 'top-right', 
+        color: color, 
+      })
+    },
   },
   components: {
     Input

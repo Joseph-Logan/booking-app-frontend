@@ -11,6 +11,13 @@
       <template #icon>
         <i :class="icon"></i>
       </template>
+
+      <template v-if="isValid" #message-success>
+          Valid Field
+        </template>
+        <template v-if="!isValid && value !== ''" #message-danger>
+          Invalid Field
+        </template>
     </vs-input>
   </div>
 </template>
@@ -24,6 +31,10 @@ export default {
     type: {
       type: String,
       default: () => "text"
+    },
+    isValid: {
+      type: Boolean,
+      default: () => false
     }
   },
   data: () => ({

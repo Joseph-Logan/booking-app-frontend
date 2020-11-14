@@ -1,3 +1,5 @@
+import Storage from '../../../utils/storage'
+
 const handleErrors = (state, err) => {
   state.isLoading = false
   state.message = err.data.errors[0].message
@@ -17,7 +19,16 @@ const getProjects = (state, payload) => {
 }
 
 const storeProject = (state, payload) => {
-  console.log(payload)
+  let { data } = payload
+  state.message = data.name
+  state.isLoading = false
+  state.status = payload.status
+
+  // store id project for current user
+
+  let user = JSON.parse(Storage.getItem('user'))
+  user.projects = [...user.projects, data._id]
+  Storage.setItem('user', user)
 }
 
 export default {
