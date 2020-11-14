@@ -3,7 +3,7 @@
     <vs-navbar shadow square center-collapsed v-model="active">
 
       <template #left v-if="isAuthenticatedUser">
-        <vs-button @click="activeSidebar = !activeSidebar" flat icon>
+        <vs-button @click="activeSidebar = !activeSidebar; activeDialog = false" flat icon>
           <i class='bx bx-menu'></i>
         </vs-button>
       </template>
@@ -57,7 +57,7 @@
           </v-list>
         </v-menu>
       </template>
-      <div v-if="activeDialog" ><Dialog :activeDialog="activeDialog" /></div>
+      <div v-if="activeDialog" ><Dialog v-bind:activeDialog="activeDialog"/></div>
 
     </vs-navbar>
     
@@ -193,8 +193,6 @@
 <script>
 import Storage from '../../utils/storage'
 import { isAuthenticated } from '../../utils/authenticate'
-import SidebarEmptyProjectOption from './SidebarEmptyProjects'
-import SidebarWithProjectOption from './SidebarWithProjects'
 import Dialog from '../Dialog'
 
 export default {
@@ -252,8 +250,6 @@ export default {
     console.log('any')
   },
   components: {
-    SidebarEmptyProjectOption,
-    SidebarWithProjectOption,
     Dialog
   },
   async mounted () {
