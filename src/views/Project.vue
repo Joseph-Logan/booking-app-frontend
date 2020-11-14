@@ -15,7 +15,13 @@
       </v-flex>
     </v-layout>
 
-    <v-layout align-center justify-center row fill-height ref="content" style="height: 300px" v-if="isLoading"/>
+    <v-alert
+      class="mt-4 px-3"
+      :value="isLoading"
+      color="indigo"
+    >
+      Cargando proyectos...
+    </v-alert>
   </div>
 </template>
 
@@ -64,9 +70,6 @@ export default {
     closeLoading (loading) {
       loading.close()
     }
-  },
-  updated () {
-    this.handleWatchAndLoading()
   },
   mounted () {
     this.loading = this.startLoading()

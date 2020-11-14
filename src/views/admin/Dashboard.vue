@@ -1,6 +1,6 @@
 <template>
   <div class="dashboard-admin pt-1">
-    <v-layout row wrap>
+    <!-- <v-layout row wrap>
       <v-flex md4 class="hidden-md-and-down">
         <CardInfo />
       </v-flex>
@@ -12,7 +12,7 @@
       <v-flex md4 class="hidden-md-and-down">
         <CardInfo />
       </v-flex>
-    </v-layout>
+    </v-layout> -->
 
     <v-layout row wrap justify-start align-center fill-height class="">
       <v-flex xs12>
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import CardInfo from '@/components/CardInfo'
+// import CardInfo from '@/components/CardInfo'
 import Card from '@/components/Card'
 import { mapGetters } from 'vuex'
  
@@ -115,7 +115,7 @@ export default {
     }
   },
   components: {
-    CardInfo,
+    // CardInfo,
     Card
   },
   mounted () {
