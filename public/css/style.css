@@ -12,6 +12,10 @@ body {
   margin-left: auto;
 }
 
+body.default-color {
+  background-color: #eef5f9;
+}
+
 .d-flex {
   display: flex !important;
 }

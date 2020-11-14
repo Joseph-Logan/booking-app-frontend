@@ -3,6 +3,7 @@
     <v-layout row wrap justify-start align-center fill-height v-if="!isLoading" >
       <v-flex xs12 md4 v-for="(item, i) in projects" :key="i">
         <Card :project="item" />
+        
       </v-flex>
       <v-flex xs12 md12 v-if="projects.length < 1" class="mt-4 px-3">
         <v-alert
@@ -13,6 +14,7 @@
         </v-alert>
       </v-flex>
     </v-layout>
+
     <v-layout align-center justify-center row fill-height ref="content" style="height: 300px" v-if="isLoading"/>
   </div>
 </template>
@@ -23,7 +25,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   data: () => ({
-
+    loading: null
   }),
   computed: {
     ...mapGetters({
@@ -38,24 +40,22 @@ export default {
       let watch = this.handleWatchAndLoading()
       setTimeout(() => {
         watch()
-      }, 1000)
+      }, 4000)
     },
     handleWatchAndLoading () {
-      let loading = this.startLoading()
       try {
         let watch = this.$store.watch((state, getters) => {
           if (!getters['project/getIsLoading']) {
-            this.closeLoading(loading)
+            this.closeLoading(this.loading)
           }
         })
         return watch
       } catch (err) {
-         this.closeLoading(loading)
+        this.closeLoading(this.loading)
       }
     },
     startLoading () {
       let loading = this.$vs.loading({
-        target: this.$refs.content,
         color: 'dark',
         type: 'circles'
       })
@@ -69,6 +69,7 @@ export default {
     this.handleWatchAndLoading()
   },
   mounted () {
+    this.loading = this.startLoading()
     this.getProjects()
   },
   components: {

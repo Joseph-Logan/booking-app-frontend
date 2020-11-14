@@ -61,7 +61,7 @@
     </vs-navbar>
 
     <vs-sidebar
-      :absolute="true"
+      absolute
       v-model="active"
       :open.sync="activeSidebar"
       v-if="isAuthenticatedUser"
@@ -83,11 +83,11 @@
       <!-- Config sidebar when user has projects -->
 
       <div class="sidebar-with-project" v-if="isUserHasProjects">
-        <vs-sidebar-item id="market">
+        <vs-sidebar-item id="market" to="dashboard-admin">
           <template #icon>
-            <i class='bx bx-grid-alt'></i>
+            <i class='bx bxs-folder'></i>
           </template>
-          Market Overview
+          Mis proyectos
         </vs-sidebar-item>
         <vs-sidebar-item id="Music">
           <template #icon>

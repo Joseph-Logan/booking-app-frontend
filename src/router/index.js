@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
 import CreateProject from '../views/admin/CreateProject.vue'
+import DasboardAdmin from '../views/admin/Dashboard.vue'
 
 Vue.use(VueRouter)
 
@@ -31,6 +32,11 @@ const routes = [
     path: '/add-project',
     name: 'CreateProject',
     component: CreateProject
+  },
+  {
+    path: '/dashboard-admin',
+    name: 'DashboardAdmin',
+    component: DasboardAdmin
   }
 ]
 

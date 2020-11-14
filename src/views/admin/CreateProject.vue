@@ -48,13 +48,6 @@
                 {{ item.name }}
               </vs-option>
             </vs-select>
-            <!-- <v-select
-              :items="categories"
-              label="Solo field"
-              solo
-              item-text="name"
-              item-value="_id"
-            ></v-select> -->
           </v-card-text>
 
           <v-card-actions class="pt-4">
@@ -141,7 +134,7 @@ export default {
     },
     handleRedirect (status) {
       setTimeout(() => {
-        if (status === 201) window.location = '/'
+        if (status === 201) window.location = '/dashboard-admin'
       }, 1000);
     },
     handleNotify (status, title, text) {
