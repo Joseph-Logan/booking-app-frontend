@@ -1,7 +1,13 @@
 <template>
   <div class="category-list mx-2">
     <v-list subheader>
-      <v-subheader>Categorias</v-subheader>
+      <v-subheader>
+        Categorias
+        <v-spacer></v-spacer>
+        <vs-button size="sm" @click="handleSubmit" :loading="isLoading">
+          <i class="bx bxs-folder mr-3"></i> Ver todo
+        </vs-button>
+      </v-subheader>
         <v-divider></v-divider>
 
         <v-list-tile

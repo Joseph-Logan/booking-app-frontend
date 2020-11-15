@@ -304,7 +304,7 @@
       </div>
     </div>
     <div class="button">
-      <vs-button block size="large" class="title" @click="handleSubmit">
+      <vs-button block size="large" class="title" @click="handleSubmit" :loading="isLoading">
         <i class="bx bxs-credit-card mr-3"></i> Procesar pago
       </vs-button>
     </div>
@@ -312,6 +312,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import Input from "@/components/Input";
 
 import {
@@ -346,29 +347,74 @@ export default {
     expirationDate: "",
     securityCode: "",
   }),
+  computed: {
+    ...mapGetters({
+      isLoading: 'membership/getIsLoading',
+      message: 'membership/getMessage',
+      status: 'membership/getStatus'
+    }),
+  },
   methods: {
     async handleSubmit () {
-      let data = {
-        card_credentials: {
-          amount: 7.99,
-          description: "Compra de membresia",
-          entity_description: "Compra de membresia",
-          currency: USD,
-          credit_card_number: this.cardNumber.substring(0,19),
-          credit_card_security_code_number: this.securityCode,
-          exp_month: await this.subStringDate(this.expirationDate, MONTH),
-          exp_year: await this.subStringDate(this.expirationDate, YEAR)
-        },
-        membership_data: {
-          endDate: this.handleMonthExpired(),
-          description: "Compra de membresia"
-        },
-        user_data: {
-          id: JSON.parse(Storage.getItem('user'))._id
-        },
-      }
+      try {
+        let data = {
+          card_credentials: {
+            amount: 7.99,
+            description: "Compra de membresia",
+            entity_description: "Compra de membresia",
+            currency: USD,
+            credit_card_number: this.cardNumber.substring(0,19),
+            credit_card_security_code_number: this.securityCode,
+            exp_month: await this.subStringDate(this.expirationDate, MONTH),
+            exp_year: await this.subStringDate(this.expirationDate, YEAR)
+          },
+          membership_data: {
+            endDate: this.handleMonthExpired(),
+            description: "Compra de membresia"
+          },
+          user_data: {
+            id: JSON.parse(Storage.getItem('user'))._id
+          }
+        }
 
-      console.log(data)
+        // DISPATCH
+        this.$store.dispatch('membership/handleLoading', true)
+        this.$store.dispatch('membership/purchaseMembership', data)
+
+        this.handleWatchNotify()
+      } catch (err) {
+        this.handleNotify(500, 'Mensaje', err)
+      }
+    },
+    handleWatchNotify () {
+      let watch = this.$store.watch((state, getters) => {
+        if (!getters['membership/getIsLoading']) {
+          console.log(this.message)
+          this.handleNotify(this.status ,'Mensaje', this.message)
+        }
+      })
+      
+      setTimeout(() => {
+        watch()
+      }, 4000)
+    },
+    handleNotify (status, title, text) {
+      if (status === 201) {
+        this.$vs.notification({
+          title, 
+          text, 
+          position: 'top-center', 
+          color: 'primary'
+        })
+        return
+      }
+      let color = 'danger'
+      this.$vs.notification({
+        title: title, 
+        text: text, 
+        position: 'top-right', 
+        color: color, 
+      })
     },
     handleName(value) {
       this.name = value;
