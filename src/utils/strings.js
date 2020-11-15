@@ -10,7 +10,6 @@ export {
   USER,
   SIGNUP_SUCCESS,
   USD,
-  USER,
   MONTH,
   YEAR
 }
