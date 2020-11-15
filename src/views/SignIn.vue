@@ -12,7 +12,7 @@
 
           <v-card-text>
             <Input title="Correo" @handle-change = 'handleEmail' class="my-2" icon="bx bx-user" v-bind:isValid="isValidEmail" />
-            <Input title="Password" type="password" @handle-change = 'handlePassword' class="my-2 w-100" icon="bx bx-lock-open-alt" />
+            <Input title="Password" type="password" @handle-change = 'handlePassword' class="my-2 w-100" icon="bx bx-lock-open-alt" v-bind:isValid="isValidPassword" />
           </v-card-text>
 
           <v-card-actions class="d-flex justify-content-end">
@@ -60,18 +60,24 @@ export default {
       this.isValidEmail = this.validEmail(value)
       this.email = value
     },
+    validPassword(value){
+      return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{7,}$/.test(value)
+    },
     handlePassword (value) {
+      this.isValidPassword = this.validPassword(value)
       this.password = value
     },
     handleSubmit () {
-      this.$store.dispatch('auth/handleLoading', true)
-      let data = {
-        email: this.email,
-        password: this.password
-      }
-      this.$store.dispatch('auth/signIn', data)
+      if(this.isValidEmail && this.isValidPassword){
+        this.$store.dispatch('auth/handleLoading', true)
+        let data = {
+          email: this.email,
+          password: this.password
+        }
+        this.$store.dispatch('auth/signIn', data)
 
-      this.handleWatchAndRedirect()
+        this.handleWatchAndRedirect()
+      }
     },
     handleWatchAndRedirect () {
       let watch = this.$store.watch((state, getters) => {
