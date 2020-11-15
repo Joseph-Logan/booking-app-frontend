@@ -67,9 +67,9 @@
 </template>
 
 <script>
-import Input from '../../components/Input'
+import Input from '@/components/Input'
 import { mapGetters } from 'vuex'
-import Storage from '../../utils/storage'
+import Storage from '@/utils/storage'
 
 export default {
   data: () => ({

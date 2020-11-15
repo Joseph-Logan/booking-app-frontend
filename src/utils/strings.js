@@ -1,8 +1,13 @@
 const SIGNIN_SUCCESS = 'Bienvenido'
-
+const USD = 'USD'
 const USER = 'user'
+const MONTH = 'MONTH'
+const YEAR = 'YEAR'
 
 export {
   SIGNIN_SUCCESS,
-  USER
+  USD,
+  USER,
+  MONTH,
+  YEAR
 }

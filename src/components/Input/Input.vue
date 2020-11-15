@@ -7,6 +7,7 @@
       v-model="value"
       :placeholder="title"
       :type="type"
+      :id="id"
     >
       <template #icon>
         <i :class="icon"></i>
@@ -28,6 +29,10 @@ export default {
     status: Number,
     title: String,
     icon: String,
+    id: {
+      type: String,
+      default: () => `input-${Math.random(100)}`
+    },
     type: {
       type: String,
       default: () => "text"

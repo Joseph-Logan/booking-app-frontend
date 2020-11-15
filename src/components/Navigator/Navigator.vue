@@ -105,7 +105,7 @@
             </vs-sidebar-item>
           </template>
 
-          <vs-sidebar-item id="Instagram">
+          <vs-sidebar-item id="Instagram" to="purchase">
             <template #icon>
               <i class='bx bxs-credit-card-alt' ></i>
             </template>
