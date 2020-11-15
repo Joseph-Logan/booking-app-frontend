@@ -1,4 +1,5 @@
-import { apiProject } from '../../../services'
+import { apiProject, apiUser } from '../../../services'
+import Storage from '../../../utils/storage'
 
 const handleLoading = (context, status) => {
   context.commit('handleLoading', status)
@@ -31,10 +32,20 @@ const storeProject = async (context, data) => {
   }
 }
 
+const getProjectsByUserId = async (context) => {
+  try {
+    let userId = JSON.parse(Storage.getItem('user'))._id
+    let response = await apiUser.getProjectsByUserId({userId})
+    context.commit('getProjects', response)
+  } catch (err) {
+    context.commit('handleErrors', err.response)
+  }
+} 
 
 export default {
   handleLoading,
   getProjects,
   getProjectsByCategory,
-  storeProject
+  storeProject,
+  getProjectsByUserId
 }

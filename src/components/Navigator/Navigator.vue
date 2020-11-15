@@ -62,7 +62,7 @@
     </vs-navbar>
     
     <vs-sidebar
-      :absolute="true"
+      absolute
       v-model="active"
       :open.sync="activeSidebar"
       v-if="isAuthenticatedUser"
@@ -84,54 +84,57 @@
       <!-- Config sidebar when user has projects -->
 
       <div class="sidebar-with-project" v-if="isUserHasProjects">
-        <vs-sidebar-item id="market">
+        <vs-sidebar-item id="market" to="dashboard-admin">
           <template #icon>
-            <i class='bx bx-grid-alt'></i>
+            <i class='bx bxs-folder'></i>
           </template>
-          Market Overview
+          Mis Proyectos
         </vs-sidebar-item>
-        <vs-sidebar-item id="Music">
+        <!-- <vs-sidebar-item id="Music">
           <template #icon>
-            <i class='bx bxs-music'></i>
+            <i class='bx bxs-coin-stack'></i>
           </template>
-          Music
-        </vs-sidebar-item>
+          Test
+        </vs-sidebar-item> -->
         <vs-sidebar-group>
           <template #header>
             <vs-sidebar-item arrow>
               <template #icon>
-                <i class='bx bx-group'></i>
+                <i class='bx bxs-coin-stack'></i>
               </template>
-              Social media
+              Obtener Membresia
             </vs-sidebar-item>
           </template>
 
-          <vs-sidebar-item id="Instagram">
+          <vs-sidebar-item id="Instagram" to="purchase">
             <template #icon>
-              <i class='bx bxl-instagram'></i>
+              <i class='bx bxs-credit-card-alt' ></i>
             </template>
-            Instagram
+            Comprar Membresia
           </vs-sidebar-item>
-          <vs-sidebar-item id="twitter">
+
+          <vs-sidebar-item id="VerMembresia">
             <template #icon>
-              <i class='bx bxl-twitter' ></i>
+              <i class='bx bx-file' ></i>
             </template>
-            Twitter
+            Ver Membresias
           </vs-sidebar-item>
-          <vs-sidebar-item id="Facebook">
+
+          <vs-sidebar-item id="ActivarMembresia">
             <template #icon>
-              <i class='bx bxl-facebook' ></i>
+              <i class='bx bx-file' ></i>
             </template>
-            Facebook
+            Activar Membresia
           </vs-sidebar-item>
+
         </vs-sidebar-group>
         <vs-sidebar-group>
           <template #header>
             <vs-sidebar-item arrow>
               <template #icon>
-                <i class='bx bx-code-alt' ></i>
+                <i class='bx bxs-food-menu' ></i>
               </template>
-              Coding
+              Productos
             </vs-sidebar-item>
           </template>
 

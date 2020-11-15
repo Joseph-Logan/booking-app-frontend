@@ -3,7 +3,9 @@ import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
 import SignIn from '../views/SignIn.vue'
 import SignUp from '../views/SignUp.vue'
-import CreateProject from '../views/admin/CreateProject.vue'
+import CreateProject from '@/views/admin/Project/CreateProject.vue'
+import DasboardAdmin from '@/views/admin/Dashboard.vue'
+import Purchase from '@/views/Payment/Purchase'
 
 Vue.use(VueRouter)
 
@@ -31,6 +33,16 @@ const routes = [
     path: '/add-project',
     name: 'CreateProject',
     component: CreateProject
+  },
+  {
+    path: '/dashboard-admin',
+    name: 'DashboardAdmin',
+    component: DasboardAdmin
+  },
+  {
+    path: '/purchase',
+    name: 'Purchase',
+    component: Purchase
   }
 ]
 
