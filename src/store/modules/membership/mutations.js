@@ -20,6 +20,15 @@ const handleErrors = (state, err) => {
   state.isLoading = false
 }
 
+const getMemberships = (state, payload) => {
+  let { data } = payload
+
+  state.status = payload.status
+  state.memberships = data.memberships
+  state.isLoading = false
+
+}
+
 const handleLoading = (state, status) => {
   state.isLoading = status
 }
@@ -43,6 +52,7 @@ const storeMembership = (state, payload) => {
 export default {
   handleErrors,
   handleLoading,
+  getMemberships,
   handleReset,
   storeMembership
 }

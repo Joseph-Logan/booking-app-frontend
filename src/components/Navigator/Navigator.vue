@@ -105,14 +105,14 @@
             </vs-sidebar-item>
           </template>
 
-          <vs-sidebar-item id="Instagram" to="purchase">
+          <vs-sidebar-item id="purchase" to="purchase">
             <template #icon>
               <i class='bx bxs-credit-card-alt' ></i>
             </template>
             Comprar Membresia
           </vs-sidebar-item>
 
-          <vs-sidebar-item id="VerMembresia">
+          <vs-sidebar-item id="membership" to="membership">
             <template #icon>
               <i class='bx bx-file' ></i>
             </template>

@@ -94,6 +94,9 @@ export default {
   },
   beforeDestroy () {
     this.$store.dispatch('membership/resetState')
+  },
+  mounted () {
+    this.$store.dispatch('membership/resetState')
   }
 }
 </script>

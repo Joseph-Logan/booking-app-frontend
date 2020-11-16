@@ -16,10 +16,16 @@ const storeProject = async (data) => {
   return await Axios.post(`${URL_ENDPOINT}/project`, data)
 }
 
+const activeProjectAndMembership = async (data) => {
+  Axios.defaults.headers.common['Authorization'] = JSON.parse(Storage.getItem('token'))
+  return await Axios.post(`${URL_ENDPOINT}/active-project`, data)
+}
+
 const apiProject = {
   getProjects,
   getProjectsByCategory,
-  storeProject
+  storeProject,
+  activeProjectAndMembership
 }
 
 export {

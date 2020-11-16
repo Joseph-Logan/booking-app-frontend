@@ -6,6 +6,7 @@ import SignUp from '../views/SignUp.vue'
 import CreateProject from '@/views/admin/Project/CreateProject.vue'
 import DasboardAdmin from '@/views/admin/Dashboard.vue'
 import Purchase from '@/views/Payment/Purchase'
+import Membership from '@/views/admin/membership'
 
 Vue.use(VueRouter)
 
@@ -43,6 +44,11 @@ const routes = [
     path: '/purchase',
     name: 'Purchase',
     component: Purchase
+  },
+  {
+    path: '/membership',
+    name: 'Membership',
+    component: Membership
   }
 ]
 

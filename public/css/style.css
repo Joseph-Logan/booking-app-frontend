@@ -1803,3 +1803,10 @@ div.vs-select-content {
 div.vs-select-content label.vs-select__label {
   font-size: 1rem;
 }
+
+/* MENU */
+
+.dashboard-option div.v-menu__content {
+  top: 0px !important; 
+  left: 130px !important;
+}
