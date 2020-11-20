@@ -14,10 +14,10 @@
       </template>
 
       <template v-if="isValid" #message-success>
-          Valid Field
+          Información Válida
         </template>
         <template v-if="!isValid && value !== ''" #message-danger>
-          Invalid Field
+          Información Inválida 
         </template>
     </vs-input>
   </div>

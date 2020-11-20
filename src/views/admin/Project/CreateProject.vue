@@ -33,7 +33,7 @@
             <strong>Datos del proyecto</strong>
           </h3>
           <v-card-text>
-            <Input title="Nombre Proyecto" @handle-change = 'handleNameProject' class="my-2" icon="bx bxs-folder" />
+            <Input title="Nombre Proyecto" @handle-change = 'handleNameProject' class="my-2" icon="bx bxs-folder" v-bind:isValid="true"/>
             <v-textarea
               box
               name="input-7-4"

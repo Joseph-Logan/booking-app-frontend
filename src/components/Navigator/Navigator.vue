@@ -3,7 +3,7 @@
     <vs-navbar shadow square center-collapsed v-model="active">
 
       <template #left v-if="isAuthenticatedUser">
-        <vs-button @click="activeSidebar = !activeSidebar" flat icon>
+        <vs-button @click="activeSidebar = !activeSidebar; activeDialog = false" flat icon>
           <i class='bx bx-menu'></i>
         </vs-button>
       </template>
@@ -57,9 +57,10 @@
           </v-list>
         </v-menu>
       </template>
+      <div v-if="activeDialog" ><Dialog v-bind:activeDialog="activeDialog"/></div>
 
     </vs-navbar>
-
+    
     <vs-sidebar
       absolute
       v-model="active"
@@ -188,12 +189,14 @@
         </vs-row>
       </template>
     </vs-sidebar>
+    
   </div>
 </template>
 
 <script>
 import Storage from '../../utils/storage'
 import { isAuthenticated } from '../../utils/authenticate'
+import Dialog from '../Dialog'
 
 export default {
   data: () => ({
@@ -205,16 +208,25 @@ export default {
     ],
     isAuthenticatedUser: false,
     userAuth: null,
-    isUserHasProjects: false
+    isUserHasProjects: false,
+    
+    activeDialog: false
   }),
   methods: {
     goToRoute(name) {
       this.$router.push({name})
     },
     handleOptionSession(item) {
-      console.log(item)
-      localStorage.clear()
-      window.location = '/'
+      if(item.id == 0){
+        localStorage.clear()
+        window.location = '/'
+        return
+      }
+      this.activeDialog = false
+      this.activeDialog = true
+    },
+    activeDialog(){
+      return this.activeDialog
     },
     configAvatar() {
       let user = JSON.parse(Storage.getItem('user'))
@@ -236,9 +248,12 @@ export default {
         this.isAuthenticatedUser = false
       }
     },
-    handleClick () {
-      console.log('any')
-    }
+  },
+  handleClick () {
+    console.log('any')
+  },
+  components: {
+    Dialog
   },
   async mounted () {
     await this.getIsAuthenticated()

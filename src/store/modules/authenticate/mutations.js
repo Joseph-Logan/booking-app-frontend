@@ -2,7 +2,8 @@
 // import Storage from '../../../utils/storage'
 
 import {
-  SIGNIN_SUCCESS
+  SIGNIN_SUCCESS,
+  SIGNUP_SUCCESS
 } from '../../../utils/strings'
 
 import Storage from '../../../utils/storage'
@@ -34,7 +35,9 @@ const storeCredentials = (state, payload) => {
 }
 
 const verifySignUp = (state, payload) => {
-  console.log(payload)
+  state.isLoading = false
+  state.message = `${SIGNUP_SUCCESS}`
+  state.status = payload.status
 }
 
 const handleErrors = (state, err) => {
