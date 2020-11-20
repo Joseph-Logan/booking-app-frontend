@@ -60,8 +60,8 @@ export default {
       this.isValidEmail = this.validEmail(value)
       this.email = value
     },
-    validPassword(value){
-      return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{7,}$/.test(value)
+    validPassword(){
+      return true // return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{4,}$/.test(value)
     },
     handlePassword (value) {
       this.isValidPassword = this.validPassword(value)

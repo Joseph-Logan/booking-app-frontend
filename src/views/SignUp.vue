@@ -7,11 +7,10 @@
           elevation="4"
           class="mx-auto mt-5"
         >
-          <v-container>
             <v-card-title>
               <h4 style="text-align:center">Unete a Nosotros</h4>
             </v-card-title>
-            
+            <v-card-text>
               <Input title="Nombre" @handle-change = 'handleName' rules="nameRules" counter="10" class="my-2" icon="bx bx-user-circle" v-bind:isValid="isValidName" />
             
               <Input title="Primer Apellido" @handle-change = 'handleSurname1' class="my-2" icon="bx bx-user-circle" v-bind:isValid="isValidFirstSurName"/>
@@ -23,7 +22,7 @@
               <Input title="Correo Electronico" type="email" @handle-change = 'handleEmail' class="my-2" rules="emailRules" icon="bx bx-envelope" v-bind:isValid="isValidEmail" />
             
               <Input title="Contraseña" type="password" @handle-change = 'handlePassword' class="my-2" icon="bx bx-lock-open-alt" v-bind:isValid="isValidPassword"/>
-
+             </v-card-text>
             <v-card-actions class="d-flex justify-content-end">
             <vs-button 
               :loading="isLoading"
@@ -33,7 +32,6 @@
               Registrarse 
             </vs-button>
           </v-card-actions>
-          </v-container>
         </v-card>
       </v-flex>
     </v-layout>

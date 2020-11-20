@@ -4,7 +4,7 @@
       <v-subheader>
         Categorias
         <v-spacer></v-spacer>
-        <vs-button size="sm" @click="handleSubmit" :loading="isLoading">
+        <vs-button size="sm" @click="getProjects">
           <i class="bx bxs-folder mr-3"></i> Ver todo
         </vs-button>
       </v-subheader>
@@ -46,6 +46,10 @@ export default {
     handleCantegory (item) {
       this.activeItem = item._id
       this.$emit('handle-select-category', item)
+    },
+    getProjects () {
+      this.$store.dispatch('project/handleLoading', true)
+      this.$store.dispatch('project/getProjects')
     }
   },
   mounted () {

@@ -7,9 +7,25 @@ const getProducts = (state, payload) => {
 }
 
 const handleErrors = (state, err) => {
-  state.isLoading = false
-  state.message = err.data.errors[0].message
+  if (err.status === 403) {
+    state.message = `<h2> ${err.data.errors[0].message.name}</h2>`
+
+    setTimeout(() => {
+      state.message = '<h2>Redireccionando</h2>'
+
+    }, 1500);
+
+    setTimeout(() => {
+      window.location = '/sign-in'
+      localStorage.clear()
+    }, 3000);
+  }
+  else {
+    state.message = `<h2> ${err.data.errors[0].message}</h2>`
+  }
   state.status = err.status
+  state.memberships = []
+  state.isLoading = false
 }
 
 export default {
